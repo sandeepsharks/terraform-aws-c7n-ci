@@ -48,3 +48,4 @@ resource "aws_s3_bucket_object" "accounts_yaml" {
 output "bucket" {
   value = local.bucket_name
 }
+
