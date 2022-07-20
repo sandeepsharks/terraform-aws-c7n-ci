@@ -13,4 +13,6 @@ policies:
     resource: aws.iam-policy
     conditions:
       - region: us-east-1
+  - name: all-user
+    resource: iam-user
 
