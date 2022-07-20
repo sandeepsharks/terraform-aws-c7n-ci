@@ -17,3 +17,4 @@ policies:
     resource: aws.iam-policy
     conditions:
       - region: us-east-1
+
