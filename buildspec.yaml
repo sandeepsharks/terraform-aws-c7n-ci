@@ -25,7 +25,7 @@ phases:
       # run against changed policies
       - c7n-policystream diff -r $POLICY_DIR --target $CODEBUILD_RESOLVED_SOURCE_VERSION --source $POLICYSTREAM_BASE -o /tmp/policystream.yaml
       - cat /tmp/policystream.yaml
-      - c7n-org run -u /tmp/policystream.yaml -c accounts.yaml -s $OUTPUT_DIR/new -v --dryrun
+      - c7n-org run -u /tmp/policystream.yaml -c accounts.yaml -s $OUTPUT_DIR/new -v
       # now run against the original policies
       - git checkout $POLICYSTREAM_BASE
       - python3 /tmp/resolve_base.py
