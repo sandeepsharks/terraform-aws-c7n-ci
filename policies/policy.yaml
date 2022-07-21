@@ -4,5 +4,5 @@ policies:
   - name: all-lambda
     resource: aws.lambda
   - name: aws-iam-query-two-active-access
-    resource: iam-user     
+    resource: iam-user   
 
