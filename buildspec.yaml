@@ -15,10 +15,10 @@ phases:
       # install requirements
       - pip install c7n-policystream==$POLICYSTREAM_VERSION c7n-org==$C7N_ORG_VERSION c7n==$C7N_VERSION
       - pip install -r /tmp/requirements.txt
-      - export cloud_custodian_role="arn:aws:iam::830753312175:role/CloudCustodianDeploymentRole"
+      - export cloud_custodian_role="arn:aws:iam::{Id}:role/c7nSecurityAuditRole"
       - curl -LO https://raw.githubusercontent.com/cloud-custodian/cloud-custodian/master/tools/c7n_org/scripts/orgaccounts.py
       - curl -LO https://raw.githubusercontent.com/cloud-custodian/cloud-custodian/master/tools/ops/mugc.py
-      - python orgaccounts.py -f accounts.yaml --role $cloud_custodian_role --active -r us-east-1 -i 939746180725
+      - python orgaccounts.py -f accounts.yaml --role $cloud_custodian_role --active
       - cat accounts.yaml
   build:
     commands:
@@ -30,7 +30,7 @@ phases:
       - git checkout $POLICYSTREAM_BASE
       - python3 /tmp/resolve_base.py
       - cat /tmp/policystream-original.yaml
-      - c7n-org run -u /tmp/policystream-original.yaml -c accounts.yaml -s $OUTPUT_DIR/original -v
+      - c7n-org run -u /tmp/policystream-original.yaml -c accounts.yaml -s $OUTPUT_DIR/original -v --dryrun
   post_build:
     commands:
       # Now parse the outputs
