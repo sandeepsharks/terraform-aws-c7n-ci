@@ -2,5 +2,5 @@ policies:
   - name: all-s3
     resource: aws.s3
     conditions:
-      - region: us-east-1
+      - region: us-east-2
 
