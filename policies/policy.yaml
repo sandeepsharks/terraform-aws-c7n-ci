@@ -1,29 +1,5 @@
 policies:
-  - name: all-iam-role
-    resource: aws.iam-role
-    conditions:
-      - region: us-east-1
-  - name: all-lambda
-    resource: aws.lambda
   - name: aws-iam-query-two-active-access
     resource: iam-user
-    conditions:
-      - region: us-east-1
-      - type: value # Load account IDs to exclude from policies
-        key: account_id
-        op: not-in
-        value_from:
-          url: s3://c7n-252015767101/exemptions/account-ids-to-exclude-from-policies.csv
-          format: csv
-          expr: 0 # optional, key 0 is default, useful if multiple columns in CSV     
-    description: |
-      Finds all IAM Users with two Access Keys which are both active.
-    filters:
-      - "tag:c7n_aws_two_accesskeys_exempt-reason": absent
-      - type: credential
-        key: access_keys.active
-        value: true
-      - type: value
-        key: 'length("c7n:matched-keys")'
-        value: 2
+
 
