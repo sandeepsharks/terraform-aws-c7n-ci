@@ -1,5 +1,4 @@
 policies:
-  - name: aws-iam-query-two-active-access
-    resource: iam-user
-
+  - name: all-s3
+    resource: aws.s3
 
