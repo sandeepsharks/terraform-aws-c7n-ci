@@ -5,6 +5,10 @@ policies:
       - region: us-east-1
   - name: all-lambda
     resource: aws.lambda
-  - name: all-s3
-    resource: aws.s3
+  - name: s3-set-bucket-encryption
+    resource: s3
+    actions:
+      - type: set-bucket-encryption
+        crypto: AES256
+        enabled: True
 
