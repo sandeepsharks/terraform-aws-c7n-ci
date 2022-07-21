@@ -18,18 +18,18 @@ phases:
       - export cloud_custodian_role="arn:aws:iam::{Id}:role/c7nSecurityAuditRole"
       - curl -LO https://raw.githubusercontent.com/cloud-custodian/cloud-custodian/master/tools/c7n_org/scripts/orgaccounts.py
       - curl -LO https://raw.githubusercontent.com/cloud-custodian/cloud-custodian/master/tools/ops/mugc.py
-      - python orgaccounts.py -f accounts.yaml --role $cloud_custodian_role --active
+      #- python orgaccounts.py -f accounts.yaml --role $cloud_custodian_role --active
   build:
     commands:
       # run against changed policies
       - c7n-policystream diff -r $POLICY_DIR --target $CODEBUILD_RESOLVED_SOURCE_VERSION --source $POLICYSTREAM_BASE -o /tmp/policystream.yaml
       #- cat /tmp/policystream.yaml
-      - c7n-org run -u /tmp/policystream.yaml -c accounts.yaml -s $OUTPUT_DIR/new
+      - c7n-org run -u /tmp/policystream.yaml -c /tmp/accounts.yaml -s $OUTPUT_DIR/new
       # now run against the original policies
       - git checkout $POLICYSTREAM_BASE
       - python3 /tmp/resolve_base.py
       - cat /tmp/policystream-original.yaml
-      - c7n-org run -u /tmp/policystream-original.yaml -c accounts.yaml -s $OUTPUT_DIR/original --dryrun
+      - c7n-org run -u /tmp/policystream-original.yaml -c /tmp/accounts.yaml -s $OUTPUT_DIR/original --dryrun
   post_build:
     commands:
       # Now parse the outputs
