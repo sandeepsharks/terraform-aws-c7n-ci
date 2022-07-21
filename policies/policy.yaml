@@ -1,6 +1,8 @@
 policies:
   - name: all-s3
     resource: aws.s3
-    conditions:
-      - region: us-east-1
+  - name: all-lambda
+    resource: aws.lambda
+  - name: aws-iam-query-two-active-access
+    resource: iam-user   
 
